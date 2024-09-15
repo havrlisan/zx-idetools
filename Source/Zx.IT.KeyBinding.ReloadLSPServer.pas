@@ -19,12 +19,13 @@ type
   private const
     CToolsMenuItemCaption = 'Tools';
     CReloadLSPServerMenuItemCaption = 'Reload LSP Server';
-    CDefaultShortcut = 'Alt+Shift+R';
+    CDefaultShortcut = 'Alt+Shift+W';
 
   strict private
     FShortCut: TShortCut;
     FShortCutAdded: Boolean;
-    procedure AddShortCut;
+    procedure AddShortCut(const ALogFailed: Boolean);
+    procedure RemoveShortCut;
     function FindReloadLSPServerMenuItem: TMenuItem;
   protected
     { IOTAIDENotifier }
@@ -33,6 +34,7 @@ type
     procedure FileNotification(NotifyCode: TOTAFileNotification; const FileName: string; var Cancel: Boolean);
   public
     constructor Create(AShortCut: String = String.Empty);
+    destructor Destroy; override;
 
   strict private
     class var FNotifierIndex: Integer;
@@ -48,24 +50,33 @@ uses
   Zx.IT.Messages;
 
 resourcestring
-  CFailedToLocateReloadLSPServerMenuItem = 'Failed to locate ''Reload LSP Server'' menu item';
+  CReloadLSPServerMenuItemNotFound = 'TMenuItem ''Reload LSP Server'' not found';
 
   { TZxReloadLSPServerNotifier }
 
-procedure TZxReloadLSPServerNotifier.AddShortCut;
+procedure TZxReloadLSPServerNotifier.AddShortCut(const ALogFailed: Boolean);
+begin
+  if FShortCutAdded then
+    Exit;
+  var
+  LMenuItem := FindReloadLSPServerMenuItem;
+  if Assigned(LMenuItem) then
+  begin
+    FShortCutAdded := True;
+    LMenuItem.ShortCut := FShortCut;
+  end
+  else if ALogFailed then
+    TZxIDEMessages.ShowMessage(CReloadLSPServerMenuItemNotFound);
+end;
+
+procedure TZxReloadLSPServerNotifier.RemoveShortCut;
 begin
   if not FShortCutAdded then
-  begin
-    var
-    LMenuItem := FindReloadLSPServerMenuItem;
-    if Assigned(LMenuItem) then
-    begin
-      FShortCutAdded := True;
-      LMenuItem.ShortCut := FShortCut;
-    end
-    else
-      TZxIDEMessages.ShowMessage(CFailedToLocateReloadLSPServerMenuItem);
-  end;
+    Exit;
+  var
+  LMenuItem := FindReloadLSPServerMenuItem;
+  if Assigned(LMenuItem) then
+    LMenuItem.ShortCut := 0;
 end;
 
 function TZxReloadLSPServerNotifier.FindReloadLSPServerMenuItem: TMenuItem;
@@ -104,7 +115,7 @@ procedure TZxReloadLSPServerNotifier.FileNotification(NotifyCode: TOTAFileNotifi
 begin
   inherited;
   if NotifyCode = TOTAFileNotification.ofnEndProjectGroupOpen then
-    AddShortCut;
+    AddShortCut(True);
 end;
 
 constructor TZxReloadLSPServerNotifier.Create(AShortCut: String);
@@ -113,6 +124,13 @@ begin
   FShortCut := TextToShortcut(AShortCut);
   if FShortCut = 0 then
     FShortCut := TextToShortcut(CDefaultShortcut);
+  AddShortCut(False);
+end;
+
+destructor TZxReloadLSPServerNotifier.Destroy;
+begin
+  RemoveShortCut;
+  inherited;
 end;
 
 class constructor TZxReloadLSPServerNotifier.ClassCreate;
