@@ -14,8 +14,8 @@ uses
 procedure Register;
 begin
   TZxDebuggerVisualizerGUID.Register;
-  TZxDisableCtrlEnterKeyBindingNotifier.Create;
-  TZxReloadLSPServerNotifier.Create;
+  TZxDisableCtrlEnterKeyBindingNotifier.Register;
+  TZxReloadLSPServerNotifier.Register;
 end;
 
 end.
