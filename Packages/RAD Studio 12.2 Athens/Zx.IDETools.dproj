@@ -158,7 +158,7 @@
         </DelphiCompile>
         <DCCReference Include="rtl.dcp"/>
         <DCCReference Include="designide.dcp"/>
-        <DCCReference Include="..\..\Source\Zx.IT.Messages.pas"/>
+        <DCCReference Include="..\..\Source\Zx.IT.Common.pas"/>
         <DCCReference Include="..\..\Source\Zx.IT.Reg.pas"/>
         <DCCReference Include="..\..\Source\Zx.IT.DbgVisualizer.GUID.pas"/>
         <DCCReference Include="..\..\Source\Zx.IT.KeyBinding.DisableCtrlEnter.pas"/>

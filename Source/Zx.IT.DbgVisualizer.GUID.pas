@@ -44,7 +44,7 @@ type
 implementation
 
 uses
-  Zx.IT.Messages;
+  Zx.IT.Common;
 
 type
 {$SCOPEDENUMS ON}

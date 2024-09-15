@@ -34,7 +34,7 @@ requires
   designide;
 
 contains
-  Zx.IT.Messages in '..\..\Source\Zx.IT.Messages.pas',
+  Zx.IT.Common in '..\..\Source\Zx.IT.Common.pas',
   Zx.IT.Reg in '..\..\Source\Zx.IT.Reg.pas',
   Zx.IT.DbgVisualizer.GUID in '..\..\Source\Zx.IT.DbgVisualizer.GUID.pas',
   Zx.IT.KeyBinding.DisableCtrlEnter in '..\..\Source\Zx.IT.KeyBinding.DisableCtrlEnter.pas',

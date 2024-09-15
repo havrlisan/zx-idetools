@@ -47,7 +47,7 @@ type
 implementation
 
 uses
-  Zx.IT.Messages;
+  Zx.IT.Common;
 
 resourcestring
   CReloadLSPServerMenuItemNotFound = 'TMenuItem ''Reload LSP Server'' not found';
