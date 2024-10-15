@@ -35,10 +35,10 @@ After:
 Disables the annoying *Ctrl+Enter* shortcut which triggers the '*Open file*' dialog.
 
 ### Reload LSP Server
-Embarcadero added the '*Reload LSP Server*' menu item to the *Tools* section but didn't assign any shortcut. Since the menu item is added dynamically, it is not accessible through the '*[GExperts](https://blog.dummzeuch.de/experimental-gexperts-version/) IDE Menu Shortcuts*', so I decided to manually add the shortcut. This tool assigns the shortcut '*Alt+Shift+W*' to the menu item.
+Embarcadero added the '*Reload LSP Server*' menu item to the *Tools* section but didn't assign any shortcut. Since the menu item is added dynamically, it is not accessible through the '*[GExperts](https://blog.dummzeuch.de/experimental-gexperts-version/) IDE Menu Shortcuts*', so I decided to add the shortcut manually. This tool assigns the shortcut '*Alt+Shift+W*' to the menu item.
 
 ## Common
 A set of utilities used by the tools. Currently contains only the `TZxIDEMessages`.
 
 ## How to use
-I designed the tools to be as independent as possible, so you can easily add them to your projects and install them manually. However, if you'd prefer a quicker option, there's also the `Zx.IDETools.dproj` package, which installs all the tools at once.
+I designed the tools to be as independent as possible, so you can easily add them to your packages and install them manually. However, if you'd prefer a quicker option, there's also the `Zx.IDETools.dproj` package, which installs all the tools at once. If you want to disable some tool or assign a different shortcut, you'll most likely be able to do so in a single unit, [`Zx.IT.Reg.pas`](Source/Zx.IT.Reg.pas).
