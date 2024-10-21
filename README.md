@@ -49,4 +49,4 @@ Default shortcut: *Ctrl+Shift+T*
 A set of utilities used by the tools. Currently contains only the `TZxIDEMessages`.
 
 ## How to use
-I designed the tools to be as independent as possible, so you can easily add them to your packages and install them manually. However, if you'd prefer a quicker option, there's also the `Zx.IDETools.dproj` package, which installs all the tools simultaneously. If you want to disable some tool or assign a different shortcut, you'll most likely be able to do so in a single unit, [`Zx.IT.Reg.pas`](Source/Zx.IT.Reg.pas).
+I designed the tools to be as independent as possible, so you can easily add them to your packages and install them manually. However, if you'd prefer a quicker option, there's also the `Zx.IDETools.dproj` package, which installs all the tools simultaneously. If you want to disable some tool or assign a different shortcut, you should be able to do so in a single unit, [`Zx.IT.Reg.pas`](Source/Zx.IT.Reg.pas).
