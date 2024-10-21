@@ -88,11 +88,11 @@ begin
     for var LChild in LServices.MainMenu.Items do
       if SameCaption(LChild.Caption, CToolsMenuItemCaption) then
       begin
-        for var LToolsMenuItemChild in LChild do
+        for var LMenuItemChild in LChild do
         begin
-          if SameCaption(LToolsMenuItemChild.Caption, CReloadLSPServerMenuItemCaption) then
+          if SameCaption(LMenuItemChild.Caption, CReloadLSPServerMenuItemCaption) then
           begin
-            Result := LToolsMenuItemChild;
+            Result := LMenuItemChild;
             Break;
           end;
         end;
