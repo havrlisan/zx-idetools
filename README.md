@@ -10,6 +10,7 @@ A set of simple IDE tools that I find useful, making my workflow faster and easi
 - [KeyBindings](#keybindings)
   - [Disable Ctrl+Enter](#disable-ctrlenter)
   - [Reload LSP Server](#reload-lsp-server)
+  - [Reopen Last Closed Tab](#reopen-last-closed-tab)
 - [Common](#common)
 - [How to use](#how-to-use)
 
@@ -27,18 +28,25 @@ After:
 ![guid-after](https://github.com/user-attachments/assets/329ba8b9-cb70-4d84-bfe6-3d7acc4c6726)
 
 
-*Note*: Cpp visualizer is not yet implemented.
+*Note*: The Cpp visualizer has not yet been implemented.
 
 ## KeyBindings
 
 ### Disable Ctrl+Enter
-Disables the annoying *Ctrl+Enter* shortcut which triggers the '*Open file*' dialog.
+Disables the annoying *Ctrl+Enter* shortcut which triggers the '*Open file*' dialog by adding another shortcut that handles the keybinding execution but does nothing.
 
 ### Reload LSP Server
-Embarcadero added the '*Reload LSP Server*' menu item to the *Tools* section but didn't assign any shortcut. Since the menu item is added dynamically, it is not accessible through the '*[GExperts](https://blog.dummzeuch.de/experimental-gexperts-version/) IDE Menu Shortcuts*', so I decided to add the shortcut manually. This tool assigns the shortcut '*Alt+Shift+W*' to the menu item.
+Embarcadero added the '*Reload LSP Server*' menu item to the *Tools* section but didn't assign any shortcut. Since the menu item is added dynamically, it is not accessible through the '*[GExperts](https://blog.dummzeuch.de/experimental-gexperts-version/) IDE Menu Shortcuts*', so I decided to add the shortcut manually.
+
+Default shortcut: *Alt+Shift+W*
+
+### Reopen Last Closed Tab
+Reopens the last closed editor tab by digging through _File > Open Recent_ menu items (those prefixed with alphabet letters). 
+
+Default shortcut: *Ctrl+Shift+T*
 
 ## Common
 A set of utilities used by the tools. Currently contains only the `TZxIDEMessages`.
 
 ## How to use
-I designed the tools to be as independent as possible, so you can easily add them to your packages and install them manually. However, if you'd prefer a quicker option, there's also the `Zx.IDETools.dproj` package, which installs all the tools at once. If you want to disable some tool or assign a different shortcut, you'll most likely be able to do so in a single unit, [`Zx.IT.Reg.pas`](Source/Zx.IT.Reg.pas).
+I designed the tools to be as independent as possible, so you can easily add them to your packages and install them manually. However, if you'd prefer a quicker option, there's also the `Zx.IDETools.dproj` package, which installs all the tools simultaneously. If you want to disable some tool or assign a different shortcut, you'll most likely be able to do so in a single unit, [`Zx.IT.Reg.pas`](Source/Zx.IT.Reg.pas).
