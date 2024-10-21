@@ -14,24 +14,29 @@ type
   /// </summary>
   TZxReopenLastClosedTabKeyBindingNotifier = class(TNotifierObject, IOTAKeyboardBinding)
   private const
+    CDefaultShortcut = 'Ctrl+Shift+T';
     CFileMenuItemCaption = 'File';
     COpenRecentMenuItemCaption = 'Open Recent';
+    CRecentTabHotkey = 'A';
 
   strict private
-    procedure OnKeyboardBindingExecute(const Context: IOTAKeyContext; KeyCode: TShortcut; var BindingResult: TKeyBindingResult);
+    FShortCut: TShortCut;
+    procedure OnKeyboardBindingExecute(const Context: IOTAKeyContext; KeyCode: TShortCut; var BindingResult: TKeyBindingResult);
     function FindOpenRecentMenuItem: TMenuItem;
   strict protected
     function GetBindingType: TBindingType;
     function GetDisplayName: string;
     function GetName: string;
     procedure BindKeyboard(const BindingServices: IOTAKeyBindingServices);
+  public
+    constructor Create(AShortCut: String = String.Empty);
 
   strict private
     class var FNotifierIndex: Integer;
     class constructor ClassCreate;
     class destructor ClassDestroy;
   public
-    class procedure Register; static;
+    class procedure Register(const AShortCut: String = String.Empty); static;
   end;
 
 implementation
@@ -39,38 +44,25 @@ implementation
 uses
   Zx.IT.Common;
 
-const
-  CShortCut = 'Ctrl+Shift+T';
-
 resourcestring
   SDisplayName = 'Reopen Last Closed Tab KeyBinding';
   SName = 'ZxReopenLastClosedTabKeyBinding';
 
   { TZxReopenLastClosedTabKeyBindingNotifier }
 
-procedure TZxReopenLastClosedTabKeyBindingNotifier.OnKeyboardBindingExecute(const Context: IOTAKeyContext; KeyCode: TShortcut;
+procedure TZxReopenLastClosedTabKeyBindingNotifier.OnKeyboardBindingExecute(const Context: IOTAKeyContext; KeyCode: TShortCut;
   var BindingResult: TKeyBindingResult);
 begin
   BindingResult := TKeyBindingResult.krHandled;
   var
   LOpenRecentMenuItem := FindOpenRecentMenuItem;
-  if LOpenRecentMenuItem = nil then
-    Exit;
-  var
-  LInRecentTabsSection := False;
-  for var LItem in LOpenRecentMenuItem do
-  begin
-    if LInRecentTabsSection then
-    begin
-      if LItem.IsLine then
-        TZxIDEMessages.ShowMessage('[INFO] ReopenLastClosedTab - no recent tabs found.')
-      else
-        LItem.Click; { MenuItem's OnClick is assigned, Action is nil }
-      Break;
-    end;
-    if LItem.IsLine then
-      LInRecentTabsSection := True;
-  end;
+  if Assigned(LOpenRecentMenuItem) then
+    for var LItem in LOpenRecentMenuItem do
+      if GetHotkey(LItem.Caption) = CRecentTabHotkey then
+      begin
+        LItem.Click; { OnClick is assigned, Action is nil for these items }
+        Break;
+      end;
 end;
 
 function TZxReopenLastClosedTabKeyBindingNotifier.FindOpenRecentMenuItem: TMenuItem;
@@ -111,7 +103,15 @@ end;
 
 procedure TZxReopenLastClosedTabKeyBindingNotifier.BindKeyboard(const BindingServices: IOTAKeyBindingServices);
 begin
-  BindingServices.AddKeyBinding([TextToShortcut(CShortCut)], OnKeyboardBindingExecute, nil, 0);
+  BindingServices.AddKeyBinding([FShortCut], OnKeyboardBindingExecute, nil, 0);
+end;
+
+constructor TZxReopenLastClosedTabKeyBindingNotifier.Create(AShortCut: String);
+begin
+  inherited Create;
+  FShortCut := TextToShortcut(AShortCut);
+  if FShortCut = 0 then
+    FShortCut := TextToShortcut(CDefaultShortcut);
 end;
 
 class constructor TZxReopenLastClosedTabKeyBindingNotifier.ClassCreate;
@@ -127,12 +127,12 @@ begin
     LKeyboardServices.RemoveKeyboardBinding(FNotifierIndex);
 end;
 
-class procedure TZxReopenLastClosedTabKeyBindingNotifier.Register;
+class procedure TZxReopenLastClosedTabKeyBindingNotifier.Register(const AShortCut: String = String.Empty);
 var
   LKeyboardServices: IOTAKeyboardServices;
 begin
   if (FNotifierIndex = -1) and Supports(BorlandIDEServices, IOTAKeyboardServices, LKeyboardServices) then
-    FNotifierIndex := LKeyboardServices.AddKeyboardBinding(TZxReopenLastClosedTabKeyBindingNotifier.Create);
+    FNotifierIndex := LKeyboardServices.AddKeyboardBinding(TZxReopenLastClosedTabKeyBindingNotifier.Create(AShortCut));
 end;
 
 end.

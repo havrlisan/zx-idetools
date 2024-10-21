@@ -17,9 +17,9 @@ type
   /// </summary>
   TZxReloadLSPServerNotifier = class(TNotifierObject, IOTANotifier, IOTAIDENotifier)
   private const
+    CDefaultShortcut = 'Alt+Shift+W';
     CToolsMenuItemCaption = 'Tools';
     CReloadLSPServerMenuItemCaption = 'Reload LSP Server';
-    CDefaultShortcut = 'Alt+Shift+W';
 
   strict private
     FShortCut: TShortCut;
