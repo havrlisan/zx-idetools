@@ -1,6 +1,5 @@
-
-<p align="left"><img src="Resources/Logo/ZX-dark.svg" alt="Logo" height="280" width="320" /></p>
-<a href="#compatibility"><img src="https://img.shields.io/static/v1?label=RAD%20Studio&message=11%2B&color=silver&style=flat&logo=delphi&logoColor=white" alt="Delphi 11+ support" /></a>
+<p align="center"><img src="Resources/Logo/ZX-dark.svg" alt="Logo" height="210" width="240" /></p>
+<p align="center"><a href="#compatibility"><img src="https://img.shields.io/static/v1?label=RAD%20Studio&message=11%2B&color=silver&style=flat&logo=delphi&logoColor=white" alt="Delphi 11+ support" /></a></p>
 
 A set of simple IDE tools that I find useful, making my workflow faster and easier. I'll add more as I develop new ideas, and feel free to suggest some as well!
 
