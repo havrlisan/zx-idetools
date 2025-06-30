@@ -9,9 +9,10 @@ uses
 type
   TZxIDEMessages = class
   private const
-    CGroupName = 'ZxIDETools';
+    CGroupName = 'Zx.IDETools';
 
   strict private
+    class constructor ClassCreate;
     class function GroupMessage: IOTAMessageGroup;
   public
     class procedure ShowMessage(const AMessage: String); overload;
@@ -21,6 +22,14 @@ type
 implementation
 
 { TZxIDEMessages }
+
+class constructor TZxIDEMessages.ClassCreate;
+begin
+  var
+  LMessageGroup := (BorlandIDEServices As IOTAMessageServices).GetGroup(CGroupName);
+  if Assigned(LMessageGroup) then
+    (BorlandIDEServices As IOTAMessageServices).ClearMessageGroup(LMessageGroup);
+end;
 
 class function TZxIDEMessages.GroupMessage: IOTAMessageGroup;
 begin
