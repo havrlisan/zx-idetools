@@ -101,7 +101,7 @@ begin
   var
   LCurrD4Pos := 0;
   try
-    while I < AGUIDStr.Length do
+    while I <= AGUIDStr.Length do
       if CharInSet(AGUIDStr[I], CIgnoredChars) then
       begin
         if not LBuffer.IsEmpty then
