@@ -40,13 +40,13 @@ Disables the annoying *Ctrl+Enter* shortcut which triggers the '*Open file*' dia
 
 ### Reload LSP Server
 
-Embarcadero added the '*Reload LSP Server*' menu item to the *Tools* section but didn't assign any shortcut. Since the menu item is added dynamically, it is not accessible through the '*[GExperts](https://blog.dummzeuch.de/experimental-gexperts-version/) IDE Menu Shortcuts*', so I decided to add the shortcut manually.
+Embarcadero added the '*Reload LSP Server*' menu item to the *Tools* section, but didn't assign any shortcut. Since the menu item is added dynamically, it is not accessible through the '*[GExperts](https://blog.dummzeuch.de/experimental-gexperts-version/) IDE Menu Shortcuts*', so I decided to add the shortcut manually.
 
 Default shortcut: *Alt+Shift+W*
 
 ### Reopen Last Closed Tab
 
-Reopens the last closed editor tab by digging through _File > Open Recent_ menu items (those prefixed with alphabet letters). 
+Reopens the last closed editor tab by digging through the _File > Open Recent_ menu items (those prefixed with alphabet letters). 
 
 Default shortcut: *Ctrl+Shift+T*
 
@@ -54,18 +54,18 @@ Default shortcut: *Ctrl+Shift+T*
 
 This implementation consists of two parts: a receiver (_FileOpener_) and a sender (_SendToIDE_).
 
-The receiver is installed in the IDE and listens to Windows messages for _WM_COPYDATA_, in which it expects a defined record that contains the file name, line and column.
+The receiver is installed in the IDE and listens for Windows messages with the _WM_COPYDATA_ code, expecting a predefined record that contains the file name, line, and column.
 
 The sender is a standalone console application that accepts the following arguments:
 ```Zx.OpenInIDE.exe <File> [Line] [Column] [RAD Studio Path]```
 1. **File**: required, full file path.
-2. *Line*: optional, line number the editor should jump to.
+2. *Line*: optional, the line number the editor should jump to.
 3. *Column*: optional, character the editor should jump to in the line.
-4. *RAD Studio path*: optional, full path to RAD Studio. Default is the value of the *App* key in the registry path: `HKEY_CURRENT_USER\Software\Embarcadero\BDS\23.0`. This is also useful if you don't use the plain RAD Studio application, but other variations like the _Delphi 12 (DPI Unaware)_. Shortcuts (_.lnk_) are also supported.
+4. *RAD Studio path*: optional, full path to RAD Studio. The default is the value of the *App* key in the registry path: `HKEY_CURRENT_USER\Software\Embarcadero\BDS\23.0`. This is also useful if you don't use the plain RAD Studio application, but rather other variations, such as Delphi 12 (DPI Unaware). Shortcuts (_.lnk_) are also supported. If a bds.exe instance is already running, this argument is ignored.
 
-The reason I made this extension is because RAD Studio does not accept arguments for opening a file at a certain line number (unlike [VSCode](https://code.visualstudio.com/docs/configure/command-line#_opening-files-and-folders)). 
+The reason I made this extension is that RAD Studio does not accept arguments for opening a file at a certain line number (unlike [VSCode](https://code.visualstudio.com/docs/configure/command-line#_opening-files-and-folders)). 
 
-As an example, now I can define RAD Studio as a _Custom editor_ in [dnGrep](https://github.com/dnGrep/dnGrep), call [Zx.OpenInIDE.exe](bin/Zx.OpenInIDE.exe) with file, number and column arguments, and it will open RAD Studio the way it should (+ very fast).
+As an example, now I can define RAD Studio as a _Custom editor_ in [dnGrep](https://github.com/dnGrep/dnGrep), call [Zx.OpenInIDE.exe](bin/Zx.OpenInIDE.exe) with file, number, and column arguments, and it will open RAD Studio the way it should (+ very fast).
 
 ## Common
 
