@@ -56,8 +56,10 @@ This implementation consists of two parts: a receiver (_FileOpener_) and a sende
 
 The receiver is installed in the IDE and listens for Windows messages with the _WM_COPYDATA_ code, expecting a predefined record that contains the file name, line, and column.
 
-The sender is a standalone console application that accepts the following arguments:
+The sender is a standalone console application that sends the above Windows message with the populated data. It accepts the following arguments:
+
 ```Zx.OpenInIDE.exe <File> [Line] [Column] [RAD Studio Path]```
+
 1. **File**: required, full file path.
 2. *Line*: optional, the line number the editor should jump to.
 3. *Column*: optional, character the editor should jump to in the line.
