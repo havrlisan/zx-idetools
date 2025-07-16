@@ -8,11 +8,13 @@ uses
   Winapi.Messages,
   Winapi.ShellAPI,
   System.SysUtils,
-  System.Win.Registry,
-  System.IOUtils;
+  // System.IOUtils,
+  System.Win.Registry;
 
 const
   CRADStudioMainForm = 'TAppBuilder';
+  CRegistryKeyPath = '\Software\Embarcadero\BDS\23.0';
+  CRegistryKey = 'App'; // Contains full path to bds.exe
   WM_BPL_READY = WM_USER + 200;
 
 type
@@ -55,8 +57,8 @@ begin
   Reg := TRegistry.Create;
   try
     Reg.RootKey := HKEY_CURRENT_USER;
-    if Reg.OpenKeyReadOnly('\Software\Embarcadero\BDS\23.0') then
-      Result := Reg.ReadString('App'); // Full path to bds.exe
+    if Reg.OpenKeyReadOnly(CRegistryKeyPath) then
+      Result := Reg.ReadString(CRegistryKey);
   finally
     Reg.Free;
   end;
