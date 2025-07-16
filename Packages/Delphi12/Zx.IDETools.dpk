@@ -1,0 +1,45 @@
+package Zx.IDETools;
+
+{$R *.res}
+{$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO OFF}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION OFF}
+{$OVERFLOWCHECKS ON}
+{$RANGECHECKS ON}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES ON}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DEFINE DEBUG}
+{$ENDIF IMPLICITBUILDING}
+{$DESCRIPTION 'Zx IDE Tools - various utilities to help you focus on coding.'}
+{$DESIGNONLY}
+{$IMPLICITBUILD ON}
+
+requires
+  rtl,
+  designide;
+
+contains
+  Zx.IT.Common in '..\..\Source\Zx.IT.Common.pas',
+  Zx.IT.Reg in '..\..\Source\Zx.IT.Reg.pas',
+  Zx.IT.DbgVisualizer.GUID in '..\..\Source\Zx.IT.DbgVisualizer.GUID.pas',
+  Zx.IT.KeyBinding.DisableCtrlEnter in '..\..\Source\Zx.IT.KeyBinding.DisableCtrlEnter.pas',
+  Zx.IT.KeyBinding.ReloadLSPServer in '..\..\Source\Zx.IT.KeyBinding.ReloadLSPServer.pas',
+  Zx.IT.KeyBinding.ReopenLastClosedTab in '..\..\Source\Zx.IT.KeyBinding.ReopenLastClosedTab.pas',
+  Zx.IT.FileOpener in '..\..\Source\Zx.IT.FileOpener.pas';
+
+end.

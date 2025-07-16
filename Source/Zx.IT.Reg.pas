@@ -10,7 +10,8 @@ uses
   Zx.IT.DbgVisualizer.GUID,
   Zx.IT.KeyBinding.DisableCtrlEnter,
   Zx.IT.KeyBinding.ReloadLSPServer,
-  Zx.IT.KeyBinding.ReopenLastClosedTab;
+  Zx.IT.KeyBinding.ReopenLastClosedTab,
+  Zx.IT.FileOpener;
 
 procedure Register;
 begin
@@ -18,6 +19,7 @@ begin
   TZxDisableCtrlEnterKeyBindingNotifier.Register;
   TZxReloadLSPServerNotifier.Register;
   TZxReopenLastClosedTabKeyBindingNotifier.Register;
+  TZxFileOpener.Register;
 end;
 
 end.
