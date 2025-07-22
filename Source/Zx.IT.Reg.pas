@@ -11,6 +11,7 @@ uses
   Zx.IT.KeyBinding.DisableCtrlEnter,
   Zx.IT.KeyBinding.ReloadLSPServer,
   Zx.IT.KeyBinding.ReopenLastClosedTab,
+  Zx.IT.UpdateSubscriptionFader,
   Zx.IT.FileOpener;
 
 procedure Register;
@@ -19,6 +20,7 @@ begin
   TZxDisableCtrlEnterKeyBindingNotifier.Register;
   TZxReloadLSPServerNotifier.Register;
   TZxReopenLastClosedTabKeyBindingNotifier.Register;
+  TZxUpdateSubscriptionFader.Register;
   TZxFileOpener.Register;
 end;
 

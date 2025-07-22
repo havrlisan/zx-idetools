@@ -7,7 +7,7 @@ uses
   Winapi.Messages,
   System.SysUtils,
   Vcl.Forms,
-  Vcl.ExtCtrls,
+  Zx.IT.DelayHooker,
   ToolsAPI;
 
 type
@@ -18,17 +18,17 @@ type
     property PrevWndProc: Pointer read GetPrevWndProc;
   end;
 
-  TZxFileOpener = class(TInterfacedObject, IZxFileOpener)
+  TZxFileOpener = class(TZxDelayHooker, IZxFileOpener)
   strict private
-    FHookTimer: TTimer;
     FPrevWndProc: Pointer;
-    procedure HookToMainForm(Sender: TObject);
   strict protected
     { IZxFileOpener }
     function GetPrevWndProc: Pointer;
     procedure OpenFileAtLine(const AFile: string; ALine, ACol: Integer);
+  strict protected
+    function TryImmediately: Boolean; override;
+    function TryLoad: Boolean; override;
   public
-    procedure AfterConstruction; override;
     destructor Destroy; override;
 
   strict private
@@ -85,16 +85,6 @@ end;
 
 { TZxFileOpener }
 
-procedure TZxFileOpener.HookToMainForm(Sender: TObject);
-begin
-  var
-  LFormHandle := Application.MainForm.Handle;
-  if LFormHandle = 0 then
-    Exit;
-  FHookTimer.Enabled := False;
-  FPrevWndProc := Pointer(SetWindowLongPtr(LFormHandle, GWLP_WNDPROC, LONG_PTR(@NewWndProc)));
-end;
-
 function TZxFileOpener.GetPrevWndProc: Pointer;
 begin
   Result := FPrevWndProc;
@@ -146,20 +136,25 @@ begin
     TZxIDEMessages.ShowMessage('[TZxFileOpener] OpenFileAtLine: could not open ' + AFile.QuotedString);
 end;
 
-procedure TZxFileOpener.AfterConstruction;
+function TZxFileOpener.TryImmediately: Boolean;
+begin
+  Result := False;
+end;
+
+function TZxFileOpener.TryLoad: Boolean;
 begin
   inherited;
-  FHookTimer := TTimer.Create(nil);
-  FHookTimer.Interval := 500;
-  FHookTimer.OnTimer := HookToMainForm;
-  FHookTimer.Enabled := True;
+  var
+  LFormHandle := Application.MainForm.Handle;
+  Result := LFormHandle <> 0;
+  if Result then
+    FPrevWndProc := Pointer(SetWindowLongPtr(LFormHandle, GWLP_WNDPROC, LONG_PTR(@NewWndProc)));
 end;
 
 destructor TZxFileOpener.Destroy;
 begin
-  if not FHookTimer.Enabled then
+  if IsLoaded then
     SetWindowLongPtr(Application.MainForm.Handle, GWLP_WNDPROC, LONG_PTR(FPrevWndProc));
-  FHookTimer.Free;
   inherited;
 end;
 

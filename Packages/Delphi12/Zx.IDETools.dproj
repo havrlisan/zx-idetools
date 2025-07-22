@@ -87,6 +87,8 @@
         <DCCReference Include="..\..\Source\Zx.IT.KeyBinding.ReloadLSPServer.pas"/>
         <DCCReference Include="..\..\Source\Zx.IT.KeyBinding.ReopenLastClosedTab.pas"/>
         <DCCReference Include="..\..\Source\Zx.IT.FileOpener.pas"/>
+        <DCCReference Include="..\..\Source\Zx.IT.UpdateSubscriptionFader.pas"/>
+        <DCCReference Include="..\..\Source\Zx.IT.DelayHooker.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
