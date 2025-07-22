@@ -12,6 +12,7 @@ A set of simple IDE tools that I find useful, making my workflow faster and easi
   - [Reload LSP Server](#reload-lsp-server)
   - [Reopen Last Closed Tab](#reopen-last-closed-tab)
 - [FileOpener and SendToIDE](#fileopener-and-sendtoide)
+- [Update Subscription Fader](#update-subscription-fader)
 - [Common](#common)
 - [How to use](#how-to-use)
 
@@ -68,6 +69,12 @@ The sender is a standalone console application that sends the above Windows mess
 The reason I made this extension is that RAD Studio does not accept arguments for opening a file at a certain line number (unlike [VSCode](https://code.visualstudio.com/docs/configure/command-line#_opening-files-and-folders)). 
 
 As an example, now I can define RAD Studio as a _Custom editor_ in [dnGrep](https://github.com/dnGrep/dnGrep), call [Zx.OpenInIDE.exe](bin/Zx.OpenInIDE.exe) with file, number, and column arguments, and it will open RAD Studio the way it should (+ very fast).
+
+## Update Subscription Fader
+
+From a recent Delphi version (most likely 12+), the "_Update Subscription: Only X Days Remaining_" started showing up at the center of the Title Bar. It wouldn't be such a big issue if it weren't for the eye-stabbing red rectangle that spans almost across the entire title bar (not to mention the overlapping with the Layout Selector combobox):
+ <img width="1919" height="30" alt="image" src="https://github.com/user-attachments/assets/3cc0d347-3a03-4450-9c67-77eed0bf0074" />
+Until the Embarcadero team updates it, I decided to implement a small hack that removes the red rectangle. Unfortunately, the code they wrote for drawing the red rectangle is in the `OnPaint` event from the `TTitleBarPanel`, which means it is not a simple solution like setting a `Control.Visible` property to _False_. Instead, I had to override the event (assign a new one in which I call the previously assigned one) and replace the drawn red color on the canvas with the true color of the background panel.
 
 ## Common
 
