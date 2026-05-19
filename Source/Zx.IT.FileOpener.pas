@@ -83,6 +83,41 @@ begin
     Result := CallWindowProc(TZxFileOpener.Instance.PrevWndProc, Wnd, Msg, wParam, lParam);
 end;
 
+procedure ForceForeground(AWnd: HWND);
+var
+  LForeWnd: HWND;
+  LForeThread, LThisThread: DWORD;
+begin
+  if IsIconic(AWnd) then
+    ShowWindow(AWnd, SW_RESTORE);
+
+  LForeWnd := GetForegroundWindow;
+  if LForeWnd = AWnd then
+    Exit;
+
+  LForeThread := GetWindowThreadProcessId(LForeWnd, nil);
+  LThisThread := GetCurrentThreadId;
+
+  if (LForeThread <> 0) and (LForeThread <> LThisThread) then
+  begin
+    { Sharing an input queue with the current foreground thread lifts the
+      foreground lock, so SetForegroundWindow actually takes effect. }
+    AttachThreadInput(LForeThread, LThisThread, True);
+    try
+      BringWindowToTop(AWnd);
+      SetForegroundWindow(AWnd);
+      SetActiveWindow(AWnd);
+    finally
+      AttachThreadInput(LForeThread, LThisThread, False);
+    end;
+  end
+  else
+  begin
+    BringWindowToTop(AWnd);
+    SetForegroundWindow(AWnd);
+  end;
+end;
+
 { TZxFileOpener }
 
 function TZxFileOpener.GetPrevWndProc: Pointer;
@@ -122,14 +157,7 @@ begin
       LPos.Col := ACol;
       LPos.Line := ALine;
       LEditView.CursorPos := LPos;
-      var
-      LWnd := Application.MainForm.Handle;
-
-      if IsIconic(LWnd) then
-        ShowWindow(LWnd, SW_RESTORE);
-
-      SetForegroundWindow(LWnd);
-      SetActiveWindow(LWnd);
+      ForceForeground(Application.MainForm.Handle);
     end;
   end
   else

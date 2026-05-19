@@ -33,6 +33,7 @@ procedure SendFileAndLine(const AWnd: HWND; const AFile: string; ALine, ACol: In
 var
   LCDS: TCopyDataStruct;
   LPayload: TCopyDataPayload;
+  LPid: DWORD;
 begin
   // Log('Sending open request: ' + AFile + ':' + ALine.ToString + ':' + ACol.ToString);
   FillChar(LPayload, SizeOf(LPayload), 0);
@@ -43,6 +44,11 @@ begin
   LCDS.dwData := 0;
   LCDS.cbData := SizeOf(LPayload);
   LCDS.lpData := @LPayload;
+
+  { Grant RAD Studio the right to take the foreground; the plugin still forces
+    it via AttachThreadInput, but this keeps the warm path Windows-approved. }
+  GetWindowThreadProcessId(AWnd, LPid);
+  AllowSetForegroundWindow(LPid);
 
   SendMessage(AWnd, WM_COPYDATA, 0, LPARAM(@LCDS));
 end;
