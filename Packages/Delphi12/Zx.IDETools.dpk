@@ -26,6 +26,7 @@ package Zx.IDETools;
 {$DEFINE DEBUG}
 {$ENDIF IMPLICITBUILDING}
 {$DESCRIPTION 'Zx IDE Tools - various utilities to help you focus on coding.'}
+{$LIBSUFFIX AUTO}
 {$DESIGNONLY}
 {$IMPLICITBUILD ON}
 
