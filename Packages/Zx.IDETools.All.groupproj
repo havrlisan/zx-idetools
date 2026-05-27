@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{5CE386AA-4D31-40E5-898C-C66CBA5A4B0A}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="Zx.IDETools.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Zx.OpenInIDE.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="Zx_IDETools">
+        <MSBuild Projects="Zx.IDETools.dproj"/>
+    </Target>
+    <Target Name="Zx_IDETools:Clean">
+        <MSBuild Projects="Zx.IDETools.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Zx_IDETools:Make">
+        <MSBuild Projects="Zx.IDETools.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Zx_OpenInIDE">
+        <MSBuild Projects="Zx.OpenInIDE.dproj"/>
+    </Target>
+    <Target Name="Zx_OpenInIDE:Clean">
+        <MSBuild Projects="Zx.OpenInIDE.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Zx_OpenInIDE:Make">
+        <MSBuild Projects="Zx.OpenInIDE.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="Zx_IDETools;Zx_OpenInIDE"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="Zx_IDETools:Clean;Zx_OpenInIDE:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="Zx_IDETools:Make;Zx_OpenInIDE:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

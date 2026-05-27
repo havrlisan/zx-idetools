@@ -8,12 +8,11 @@ uses
   Winapi.Messages,
   Winapi.ShellAPI,
   System.SysUtils,
-  // System.IOUtils,
   System.Win.Registry;
 
 const
   CRADStudioMainForm = 'TAppBuilder';
-  CRegistryKeyPath = '\Software\Embarcadero\BDS\23.0';
+  CRegistryKeyPath = '\Software\Embarcadero\BDS\37.0';
   CRegistryKey = 'App'; // Contains full path to bds.exe
   WM_BPL_READY = WM_USER + 200;
 
