@@ -44,6 +44,7 @@ contains
   Zx.IT.TabMiddleMouseClickOverride in '..\Source\Zx.IT.TabMiddleMouseClickOverride.pas',
   Zx.IT.FileOpener in '..\Source\Zx.IT.FileOpener.pas',
   Zx.IT.UpdateSubscriptionFader in '..\Source\Zx.IT.UpdateSubscriptionFader.pas',
-  Zx.IT.DelayHooker in '..\Source\Zx.IT.DelayHooker.pas';
+  Zx.IT.DelayHooker in '..\Source\Zx.IT.DelayHooker.pas',
+  Zx.IT.ToggleComment in '..\Source\Zx.IT.ToggleComment.pas';
 
 end.

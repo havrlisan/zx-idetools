@@ -13,7 +13,8 @@ uses
   Zx.IT.KeyBinding.ReopenLastClosedTab,
   Zx.IT.TabMiddleMouseClickOverride,
   Zx.IT.UpdateSubscriptionFader,
-  Zx.IT.FileOpener;
+  Zx.IT.FileOpener,
+  Zx.IT.ToggleComment;
 
 procedure Register;
 begin
@@ -24,6 +25,7 @@ begin
   // TZxTabMiddleMouseClickOverride.Register;
   TZxUpdateSubscriptionFader.Register;
   TZxFileOpener.Register;
+  TZxToggleCommentKeyBinding.Register;
 end;
 
 end.

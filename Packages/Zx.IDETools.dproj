@@ -91,6 +91,7 @@
         <DCCReference Include="..\Source\Zx.IT.FileOpener.pas"/>
         <DCCReference Include="..\Source\Zx.IT.UpdateSubscriptionFader.pas"/>
         <DCCReference Include="..\Source\Zx.IT.DelayHooker.pas"/>
+        <DCCReference Include="..\Source\Zx.IT.ToggleComment.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
